@@ -1,0 +1,20 @@
+type User {
+  id: ID! @unique
+  name: String! @unique
+  password: String!
+  email: String! @unique
+  isAdmin: Boolean
+  stashClaims: [Cache!]!
+  rank: Float
+}
+
+type Cache {
+  id: ID! @unique
+  name: String! @unique
+  lat: Float!
+  long: Float!
+  claimCode: String! @unique
+  clue1: String! @unique
+  clue2: String! @unique
+  claimed: Boolean
+}

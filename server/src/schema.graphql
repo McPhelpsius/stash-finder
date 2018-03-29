@@ -1,0 +1,65 @@
+type Query {
+  users: [User]
+  caches: [Cache]
+  user(id: ID!): User
+  cache(id: ID!): Cache
+}
+
+type Mutation {
+  createUser(
+    name: String!
+    email: String!
+    password: String!
+    isAdmin: String
+  ): User
+  deleteUser(id: ID!): User
+  updateUser(
+    id: ID!
+    name: String
+    password: String
+    email: String
+    isAdmin: Boolean
+    rank: Float
+  ): User
+  createCache(
+    id: ID!
+    name: String!
+    lat: Float!
+    long: Float!
+    claimCode: String!
+    clue1: String!
+    clue2: String!
+    claimed: Boolean
+  ): Cache
+  deleteCache(id: ID!): User
+  updateCache(
+    id: ID!
+    name: String
+    lat: Float
+    long: Float
+    claimCode: String
+    clue1: String
+    clue2: String
+    claimed: Boolean
+  ): Cache
+}
+
+type User {
+  id: ID!
+  name: String!
+  password: String!
+  email: String!
+  isAdmin: Boolean
+  rank: Float
+}
+
+type Cache {
+  id: ID!
+  name: String!
+  lat: Float!
+  long: Float!
+  claimCode: String!
+  clue1: String!
+  clue2: String!
+  claimed: Boolean
+}
