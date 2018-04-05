@@ -9,9 +9,10 @@ import {
 } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
-import Landing from './components/Landing';
+import Landing from './containers/LandingContainer';
+import Login from './containers/LoginContainer';
 import Hunt from './components/Hunt';
-import Admin from './components/Admin';
+import Admin from './containers/Admin';
 import Claim from './components/Claim';
 
 import 'tachyons';
@@ -53,6 +54,7 @@ ReactDOM.render(
         <div className="fl w-100 pl4 pr4">
           <Switch>
             <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
             <Route path="/hunt" component={Hunt} />
             <Route path="/admin" component={Admin} />
             <Route path="/claim" component={Claim} />

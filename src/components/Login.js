@@ -5,39 +5,34 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import styled from 'react-emotion';
 
-const LandingCard = styled(Card)`
+const LoginCard = styled(Card)`
   display: flex;
   flex-direction: column;
   margin: auto;
   max-width: 400px;
 `;
 
-const LandingCardContent = styled(CardContent)`
+const LoginCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
 `;
 
-const LandingCardActions = styled(CardActions)`
+const LoginCardActions = styled(CardActions)`
   display: flex;
   justify-content: flex-end;
 `;
 
-export default function Landing({
-  name,
+export default function Login({
   email,
   password,
+  error,
   updateStateField,
-  goToLogin,
-  signup,
+  login,
 }) {
   return (
-    <LandingCard>
-      <LandingCardContent>
+    <LoginCard>
+      <LoginCardContent>
         <Typography variant="title">{'Sign Up'}</Typography>
-        <TextField
-          label="Name"
-          onChange={event => updateStateField('name', event.target.value)}
-        />
         <TextField
           label="Email"
           type="email"
@@ -48,15 +43,15 @@ export default function Landing({
           type="password"
           onChange={event => updateStateField('password', event.target.value)}
         />
-      </LandingCardContent>
-      <LandingCardActions>
-        <Button color="primary" onClick={goToLogin}>
+        <Typography variant="body1" color="error">
+          {error}
+        </Typography>
+      </LoginCardContent>
+      <LoginCardActions>
+        <Button variant="raised" color="primary" onClick={login}>
           {'Login'}
         </Button>
-        <Button variant="raised" color="primary" onClick={signup}>
-          {'Sign Up'}
-        </Button>
-      </LandingCardActions>
-    </LandingCard>
+      </LoginCardActions>
+    </LoginCard>
   );
 }
