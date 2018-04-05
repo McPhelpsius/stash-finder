@@ -3,12 +3,12 @@ type User {
   name: String! @unique
   password: String!
   email: String! @unique
-  isAdmin: Boolean
-  stashClaims: [Cache!]!
+  stashClaims: [Stash!]!
   rank: Float
+  role: Role @default(value: "HUNTER")
 }
 
-type Cache {
+type Stash {
   id: ID! @unique
   name: String! @unique
   lat: Float!
@@ -17,4 +17,9 @@ type Cache {
   clue1: String! @unique
   clue2: String! @unique
   claimed: Boolean
+}
+
+enum Role {
+  ADMIN
+  HUNTER
 }

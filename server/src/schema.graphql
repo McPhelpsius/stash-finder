@@ -1,8 +1,9 @@
 type Query {
   users: [User]
-  caches: [Cache]
+  stashes: [Stash]
   user(id: ID!): User
-  cache(id: ID!): Cache
+  stash(id: ID!): Stash
+  me(id: ID!): User
 }
 
 type Mutation {
@@ -18,10 +19,10 @@ type Mutation {
     name: String
     password: String
     email: String
-    isAdmin: Boolean
+    role: Role
     rank: Float
   ): User
-  createCache(
+  createStash(
     id: ID!
     name: String!
     lat: Float!
@@ -30,9 +31,9 @@ type Mutation {
     clue1: String!
     clue2: String!
     claimed: Boolean
-  ): Cache
-  deleteCache(id: ID!): User
-  updateCache(
+  ): Stash
+  deleteStash(id: ID!): Stash
+  updateStash(
     id: ID!
     name: String
     lat: Float
@@ -41,7 +42,19 @@ type Mutation {
     clue1: String
     clue2: String
     claimed: Boolean
-  ): Cache
+  ): Stash
+  login(email: String!, password: String!): AuthPayload!
+  signup(name: String!, email: String!, password: String!): AuthPayload!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+enum Role {
+  ADMIN
+  HUNTER
 }
 
 type User {
@@ -49,11 +62,11 @@ type User {
   name: String!
   password: String!
   email: String!
-  isAdmin: Boolean
+  role: Role
   rank: Float
 }
 
-type Cache {
+type Stash {
   id: ID!
   name: String!
   lat: Float!

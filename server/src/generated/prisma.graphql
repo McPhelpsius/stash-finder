@@ -5,7 +5,7 @@
 # Model Types
 #
 
-type Cache implements Node {
+type Stash implements Node {
   id: ID!
   name: String!
   lat: Float!
@@ -21,9 +21,9 @@ type User implements Node {
   name: String!
   password: String!
   email: String!
-  isAdmin: Boolean
-  stashClaims(where: CacheWhereInput, orderBy: CacheOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Cache!]
+  stashClaims(where: StashWhereInput, orderBy: StashOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Stash!]
   rank: Float
+  role: Role
 }
 
 
@@ -31,7 +31,7 @@ type User implements Node {
 # Other Types
 #
 
-type AggregateCache {
+type AggregateStash {
   count: Int!
 }
 
@@ -47,9 +47,89 @@ type BatchPayload {
 }
 
 """
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createStash(data: StashCreateInput!): Stash!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateStash(data: StashUpdateInput!, where: StashWhereUniqueInput!): Stash
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteStash(where: StashWhereUniqueInput!): Stash
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertStash(where: StashWhereUniqueInput!, create: StashCreateInput!, update: StashUpdateInput!): Stash!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  updateManyStashes(data: StashUpdateInput!, where: StashWhereInput!): BatchPayload!
+  deleteManyUsers(where: UserWhereInput!): BatchPayload!
+  deleteManyStashes(where: StashWhereInput!): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  stashes(where: StashWhereInput, orderBy: StashOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Stash]!
+  user(where: UserWhereUniqueInput!): User
+  stash(where: StashWhereUniqueInput!): Stash
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  stashesConnection(where: StashWhereInput, orderBy: StashOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StashConnection!
+  """
+  Fetches an object given its ID
+  """
+  node("""
+  The ID of an object
+  """
+  id: ID!): Node
+}
+
+enum Role {
+  ADMIN
+  HUNTER
+}
+
+"""
 A connection to a list of items.
 """
-type CacheConnection {
+type StashConnection {
   """
   Information to aid in pagination.
   """
@@ -57,11 +137,11 @@ type CacheConnection {
   """
   A list of edges.
   """
-  edges: [CacheEdge]!
-  aggregate: AggregateCache!
+  edges: [StashEdge]!
+  aggregate: AggregateStash!
 }
 
-input CacheCreateInput {
+input StashCreateInput {
   name: String!
   lat: Float!
   long: Float!
@@ -71,26 +151,26 @@ input CacheCreateInput {
   claimed: Boolean
 }
 
-input CacheCreateManyInput {
-  create: [CacheCreateInput!]
-  connect: [CacheWhereUniqueInput!]
+input StashCreateManyInput {
+  create: [StashCreateInput!]
+  connect: [StashWhereUniqueInput!]
 }
 
 """
 An edge in a connection.
 """
-type CacheEdge {
+type StashEdge {
   """
   The item at the end of the edge.
   """
-  node: Cache!
+  node: Stash!
   """
   A cursor for use in pagination.
   """
   cursor: String!
 }
 
-enum CacheOrderByInput {
+enum StashOrderByInput {
   id_ASC
   id_DESC
   name_ASC
@@ -113,7 +193,7 @@ enum CacheOrderByInput {
   createdAt_DESC
 }
 
-type CachePreviousValues {
+type StashPreviousValues {
   id: ID!
   name: String!
   lat: Float!
@@ -124,22 +204,22 @@ type CachePreviousValues {
   claimed: Boolean
 }
 
-type CacheSubscriptionPayload {
+type StashSubscriptionPayload {
   mutation: MutationType!
-  node: Cache
+  node: Stash
   updatedFields: [String!]
-  previousValues: CachePreviousValues
+  previousValues: StashPreviousValues
 }
 
-input CacheSubscriptionWhereInput {
+input StashSubscriptionWhereInput {
   """
   Logical AND on all given filters.
   """
-  AND: [CacheSubscriptionWhereInput!]
+  AND: [StashSubscriptionWhereInput!]
   """
   Logical OR on all given filters.
   """
-  OR: [CacheSubscriptionWhereInput!]
+  OR: [StashSubscriptionWhereInput!]
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
@@ -156,10 +236,10 @@ input CacheSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: CacheWhereInput
+  node: StashWhereInput
 }
 
-input CacheUpdateDataInput {
+input StashUpdateDataInput {
   name: String
   lat: Float
   long: Float
@@ -169,7 +249,7 @@ input CacheUpdateDataInput {
   claimed: Boolean
 }
 
-input CacheUpdateInput {
+input StashUpdateInput {
   name: String
   lat: Float
   long: Float
@@ -179,35 +259,35 @@ input CacheUpdateInput {
   claimed: Boolean
 }
 
-input CacheUpdateManyInput {
-  create: [CacheCreateInput!]
-  connect: [CacheWhereUniqueInput!]
-  disconnect: [CacheWhereUniqueInput!]
-  delete: [CacheWhereUniqueInput!]
-  update: [CacheUpdateWithWhereUniqueNestedInput!]
-  upsert: [CacheUpsertWithWhereUniqueNestedInput!]
+input StashUpdateManyInput {
+  create: [StashCreateInput!]
+  connect: [StashWhereUniqueInput!]
+  disconnect: [StashWhereUniqueInput!]
+  delete: [StashWhereUniqueInput!]
+  update: [StashUpdateWithWhereUniqueNestedInput!]
+  upsert: [StashUpsertWithWhereUniqueNestedInput!]
 }
 
-input CacheUpdateWithWhereUniqueNestedInput {
-  where: CacheWhereUniqueInput!
-  data: CacheUpdateDataInput!
+input StashUpdateWithWhereUniqueNestedInput {
+  where: StashWhereUniqueInput!
+  data: StashUpdateDataInput!
 }
 
-input CacheUpsertWithWhereUniqueNestedInput {
-  where: CacheWhereUniqueInput!
-  update: CacheUpdateDataInput!
-  create: CacheCreateInput!
+input StashUpsertWithWhereUniqueNestedInput {
+  where: StashWhereUniqueInput!
+  update: StashUpdateDataInput!
+  create: StashCreateInput!
 }
 
-input CacheWhereInput {
+input StashWhereInput {
   """
   Logical AND on all given filters.
   """
-  AND: [CacheWhereInput!]
+  AND: [StashWhereInput!]
   """
   Logical OR on all given filters.
   """
-  OR: [CacheWhereInput!]
+  OR: [StashWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -538,7 +618,7 @@ input CacheWhereInput {
   claimed_not: Boolean
 }
 
-input CacheWhereUniqueInput {
+input StashWhereUniqueInput {
   id: ID
   name: String
   claimCode: String
@@ -546,84 +626,9 @@ input CacheWhereUniqueInput {
   clue2: String
 }
 
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  createCache(data: CacheCreateInput!): Cache!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateCache(data: CacheUpdateInput!, where: CacheWhereUniqueInput!): Cache
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteCache(where: CacheWhereUniqueInput!): Cache
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertCache(where: CacheWhereUniqueInput!, create: CacheCreateInput!, update: CacheUpdateInput!): Cache!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
-  updateManyCaches(data: CacheUpdateInput!, where: CacheWhereInput!): BatchPayload!
-  deleteManyUsers(where: UserWhereInput!): BatchPayload!
-  deleteManyCaches(where: CacheWhereInput!): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-"""
-An object with an ID
-"""
-interface Node {
-  """
-  The id of the object.
-  """
-  id: ID!
-}
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
-  """
-  When paginating backwards, are there more items?
-  """
-  hasPreviousPage: Boolean!
-  """
-  When paginating backwards, the cursor to continue.
-  """
-  startCursor: String
-  """
-  When paginating forwards, the cursor to continue.
-  """
-  endCursor: String
-}
-
-type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  caches(where: CacheWhereInput, orderBy: CacheOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Cache]!
-  user(where: UserWhereUniqueInput!): User
-  cache(where: CacheWhereUniqueInput!): Cache
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  cachesConnection(where: CacheWhereInput, orderBy: CacheOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CacheConnection!
-  """
-  Fetches an object given its ID
-  """
-  node("""
-  The ID of an object
-  """
-  id: ID!): Node
-}
-
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  cache(where: CacheSubscriptionWhereInput): CacheSubscriptionPayload
+  stash(where: StashSubscriptionWhereInput): StashSubscriptionPayload
 }
 
 """
@@ -645,9 +650,9 @@ input UserCreateInput {
   name: String!
   password: String!
   email: String!
-  isAdmin: Boolean
   rank: Float
-  stashClaims: CacheCreateManyInput
+  role: Role
+  stashClaims: StashCreateManyInput
 }
 
 """
@@ -673,10 +678,10 @@ enum UserOrderByInput {
   password_DESC
   email_ASC
   email_DESC
-  isAdmin_ASC
-  isAdmin_DESC
   rank_ASC
   rank_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -688,8 +693,8 @@ type UserPreviousValues {
   name: String!
   password: String!
   email: String!
-  isAdmin: Boolean
   rank: Float
+  role: Role
 }
 
 type UserSubscriptionPayload {
@@ -731,9 +736,9 @@ input UserUpdateInput {
   name: String
   password: String
   email: String
-  isAdmin: Boolean
   rank: Float
-  stashClaims: CacheUpdateManyInput
+  role: Role
+  stashClaims: StashUpdateManyInput
 }
 
 input UserWhereInput {
@@ -957,11 +962,6 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   email_not_ends_with: String
-  isAdmin: Boolean
-  """
-  All values that are not equal to given value.
-  """
-  isAdmin_not: Boolean
   rank: Float
   """
   All values that are not equal to given value.
@@ -991,9 +991,22 @@ input UserWhereInput {
   All values greater than or equal the given value.
   """
   rank_gte: Float
-  stashClaims_every: CacheWhereInput
-  stashClaims_some: CacheWhereInput
-  stashClaims_none: CacheWhereInput
+  role: Role
+  """
+  All values that are not equal to given value.
+  """
+  role_not: Role
+  """
+  All values that are contained in given list.
+  """
+  role_in: [Role!]
+  """
+  All values that are not contained in given list.
+  """
+  role_not_in: [Role!]
+  stashClaims_every: StashWhereInput
+  stashClaims_some: StashWhereInput
+  stashClaims_none: StashWhereInput
 }
 
 input UserWhereUniqueInput {
