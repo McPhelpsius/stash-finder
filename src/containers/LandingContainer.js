@@ -23,7 +23,6 @@ class LandingContainer extends Component {
 
   signup = async () => {
     const { name, email, password } = this.state;
-    console.log(this.props, 'signup');
 
     try {
       const response = await this.props.client.mutate({

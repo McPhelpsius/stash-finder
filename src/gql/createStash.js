@@ -5,7 +5,7 @@ export default gql`
     $id: ID!
     $name: String!
     $lat: Float!
-    $long: Float!
+    $lng: Float!
     $claimCode: String!
     $clue1: String!
     $clue2: String!
@@ -15,7 +15,7 @@ export default gql`
       id: $id
       name: $name
       lat: $lat
-      long: $long
+      lng: $lng
       claimCode: $claimCode
       clue1: $clue1
       clue2: $clue2
@@ -24,7 +24,7 @@ export default gql`
       id
       name
       lat
-      long
+      lng
       claimCode
       clue1
       clue2

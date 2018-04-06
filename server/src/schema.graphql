@@ -26,7 +26,7 @@ type Mutation {
     id: ID!
     name: String!
     lat: Float!
-    long: Float!
+    lng: Float!
     claimCode: String!
     clue1: String!
     clue2: String!
@@ -37,7 +37,7 @@ type Mutation {
     id: ID!
     name: String
     lat: Float
-    long: Float
+    lng: Float
     claimCode: String
     clue1: String
     clue2: String
@@ -70,7 +70,7 @@ type Stash {
   id: ID!
   name: String!
   lat: Float!
-  long: Float!
+  lng: Float!
   claimCode: String!
   clue1: String!
   clue2: String!

@@ -20,7 +20,6 @@ class LoginContainer extends Component {
   login = async () => {
     this.setState({ error: '' });
     const { email, password } = this.state;
-    console.log('logging in');
     try {
       const response = await this.props.client.mutate({
         mutation: login,

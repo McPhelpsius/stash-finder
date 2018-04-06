@@ -3,7 +3,7 @@ module.exports = {
     return ctx.db.query.users(info);
   },
   stashes(parent, args, ctx, info) {
-    return ctx.db.query.stash({ where: { isPublished: false } }, info);
+    return ctx.db.query.stashes(info);
   },
   user(parent, { id }, ctx, info) {
     return ctx.db.query.user({ where: { id: id } }, info);
