@@ -9,7 +9,7 @@ type Stash implements Node {
   id: ID!
   name: String!
   lat: Float!
-  long: Float!
+  lng: Float!
   claimCode: String!
   clue1: String!
   clue2: String!
@@ -144,7 +144,7 @@ type StashConnection {
 input StashCreateInput {
   name: String!
   lat: Float!
-  long: Float!
+  lng: Float!
   claimCode: String!
   clue1: String!
   clue2: String!
@@ -177,8 +177,8 @@ enum StashOrderByInput {
   name_DESC
   lat_ASC
   lat_DESC
-  long_ASC
-  long_DESC
+  lng_ASC
+  lng_DESC
   claimCode_ASC
   claimCode_DESC
   clue1_ASC
@@ -197,7 +197,7 @@ type StashPreviousValues {
   id: ID!
   name: String!
   lat: Float!
-  long: Float!
+  lng: Float!
   claimCode: String!
   clue1: String!
   clue2: String!
@@ -242,7 +242,7 @@ input StashSubscriptionWhereInput {
 input StashUpdateDataInput {
   name: String
   lat: Float
-  long: Float
+  lng: Float
   claimCode: String
   clue1: String
   clue2: String
@@ -252,7 +252,7 @@ input StashUpdateDataInput {
 input StashUpdateInput {
   name: String
   lat: Float
-  long: Float
+  lng: Float
   claimCode: String
   clue1: String
   clue2: String
@@ -423,35 +423,35 @@ input StashWhereInput {
   All values greater than or equal the given value.
   """
   lat_gte: Float
-  long: Float
+  lng: Float
   """
   All values that are not equal to given value.
   """
-  long_not: Float
+  lng_not: Float
   """
   All values that are contained in given list.
   """
-  long_in: [Float!]
+  lng_in: [Float!]
   """
   All values that are not contained in given list.
   """
-  long_not_in: [Float!]
+  lng_not_in: [Float!]
   """
   All values less than the given value.
   """
-  long_lt: Float
+  lng_lt: Float
   """
   All values less than or equal the given value.
   """
-  long_lte: Float
+  lng_lte: Float
   """
   All values greater than the given value.
   """
-  long_gt: Float
+  lng_gt: Float
   """
   All values greater than or equal the given value.
   """
-  long_gte: Float
+  lng_gte: Float
   claimCode: String
   """
   All values that are not equal to given value.

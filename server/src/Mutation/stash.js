@@ -5,7 +5,7 @@ module.exports = {
         data: {
           name,
           lat,
-          long,
+          lng,
           claimCode,
           clue1,
           clue2,
@@ -20,7 +20,7 @@ module.exports = {
   },
   updateStash(
     parent,
-    { id, name, lat, long, claimCode, clue1, clue2, claimed },
+    { id, name, lat, lng, claimCode, clue1, clue2, claimed },
     ctx,
     info,
   ) {
@@ -30,7 +30,7 @@ module.exports = {
         data: {
           name,
           lat,
-          long,
+          lng,
           claimCode,
           clue1,
           clue2,

@@ -5,10 +5,11 @@ import styled from 'react-emotion';
 const MapRestrictor = styled('section')`
   max-width: 100%;
   max-height: 300px;
+  flex: 1;
 `;
 
 const BannerMap = styled(Map)`
-  max-width: 400px;
+  height: 300px;
   max-height: 300px;
 `;
 
