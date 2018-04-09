@@ -1,10 +1,7 @@
-
-
-{
-  "language": "javascript",
-  "os": "macOS",
-  "group": "stable",
-  "dist": "trusty"
-}
-
-
+language: node_js
+node_js:
+  - "iojs"
+  - "8"
+os: osX
+install: yarn install
+script: yarn test
