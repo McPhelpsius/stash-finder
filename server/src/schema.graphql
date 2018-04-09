@@ -23,7 +23,6 @@ type Mutation {
     rank: Float
   ): User
   createStash(
-    id: ID!
     name: String!
     lat: Float!
     lng: Float!
