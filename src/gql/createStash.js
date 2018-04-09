@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 
 export default gql`
   mutation CreateStash(
-    $id: ID!
     $name: String!
     $lat: Float!
     $lng: Float!
@@ -12,7 +11,6 @@ export default gql`
     $claimed: Boolean
   ) {
     createStash(
-      id: $id
       name: $name
       lat: $lat
       lng: $lng

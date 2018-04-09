@@ -1,5 +1,5 @@
 module.exports = {
-  createStash(parent, { name, email, password }, ctx, info) {
+  createStash(parent, { name, lat, lng, claimCode, clue1, clue2 }, ctx, info) {
     return ctx.db.mutation.createStash(
       {
         data: {

@@ -18,14 +18,18 @@ const MapSection = styled('section')`
   height: 300px;
   max-height: 300px;
   align-self: flex-start;
-  margin-left: -2rem;
+`;
+
+const StashList = styled('section')`
+  margin-top: 50px;
+  flex: 1;
 `;
 
 const AddStashCard = styled(Card)`
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 400px;
+  width: 300px;
 `;
 
 const AddStashCardContent = styled(CardContent)`
@@ -35,6 +39,8 @@ const AddStashCardContent = styled(CardContent)`
 
 export default function Admin({
   editing,
+  status,
+  error,
   name,
   lat,
   lng,
@@ -42,36 +48,97 @@ export default function Admin({
   clue1,
   clue2,
   claimed,
+  updateValue,
   addStash,
   stashes,
+  mapCenter,
+  mapZoom,
+  recenterMap,
 }) {
   return (
     <AdminInterFaceContainer>
       <Typography variant="display1">The World is yours, Admin</Typography>
       <MapSection>
-        <MapComponent />
+        <MapComponent
+          points={stashes}
+          mapZoom={mapZoom}
+          mapCenter={mapCenter}
+        />
       </MapSection>
       <section />
-      {stashes.length > 0 ? (
-        stashes.map((stash, index) => {
-          return <StashCard key={index} editing={editing} stash={stash} />;
-        })
-      ) : (
-        <Typography variant="display1">No stashes loaded</Typography>
-      )}
+      <Typography variant="subheading">{status}</Typography>
+      <Typography variant="subheading" color="error">
+        {error}
+      </Typography>
+      <StashList>
+        {stashes.length > 0 ? (
+          stashes.map((stash, index) => {
+            return (
+              <StashCard
+                key={index}
+                editing={editing}
+                stash={stash}
+                recenterMap={recenterMap}
+              />
+            );
+          })
+        ) : (
+          <Typography variant="display1">No stashes loaded</Typography>
+        )}
+      </StashList>
       <section>
         <AddStashCard>
-          <AddStashCardContent>
-            <TextField label="name" />
-            <TextField label="lat" />
-            <TextField label="lng" />
-            <TextField label="claimCode" />
-            <TextField label="clue1" />
-            <TextField label="clue2" />
-          </AddStashCardContent>
-          <CardActions>
-            <Button color="primary">Add Stash</Button>
-          </CardActions>
+          <form
+            onSubmit={event => {
+              event.preventDefault();
+              addStash();
+              event.target.reset();
+            }}
+          >
+            <AddStashCardContent>
+              <TextField
+                label="name"
+                onChange={event => {
+                  updateValue('name', event.target.value);
+                }}
+              />
+              <TextField
+                label="lat"
+                onChange={event => {
+                  updateValue('lat', event.target.value);
+                }}
+              />
+              <TextField
+                label="lng"
+                onChange={event => {
+                  updateValue('lng', event.target.value);
+                }}
+              />
+              <TextField
+                label="claimCode"
+                onChange={event => {
+                  updateValue('claimCode', event.target.value);
+                }}
+              />
+              <TextField
+                label="clue1"
+                onChange={event => {
+                  updateValue('clue1', event.target.value);
+                }}
+              />
+              <TextField
+                label="clue2"
+                onChange={event => {
+                  updateValue('clue2', event.target.value);
+                }}
+              />
+            </AddStashCardContent>
+            <CardActions>
+              <Button color="primary" type="submit">
+                Add Stash
+              </Button>
+            </CardActions>
+          </form>
         </AddStashCard>
       </section>
     </AdminInterFaceContainer>
