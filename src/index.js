@@ -11,7 +11,7 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import Landing from './containers/LandingContainer';
 import Login from './containers/LoginContainer';
-import Hunt from './components/Hunt';
+import Hunt from './containers/HuntContainer';
 import Admin from './containers/Admin';
 import Claim from './components/Claim';
 
