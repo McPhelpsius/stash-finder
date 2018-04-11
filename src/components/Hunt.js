@@ -10,6 +10,8 @@ const MapSection = styled('section')`
 `;
 const FlexContainer = styled('div')`
   display: flex;
+  flex: 1;
+  justify-content: center;
 `;
 
 const HeatIndicator = styled('div')`
@@ -17,7 +19,7 @@ const HeatIndicator = styled('div')`
   flex: 1 0 50%;
 `;
 
-export default function Hunt({ mapCenter, mapZoom, warmer }) {
+export default function Hunt({ mapCenter, mapZoom, warmer, heatIndex }) {
   return (
     <section>
       <Typography variant="display3">Hunt</Typography>
@@ -31,6 +33,44 @@ export default function Hunt({ mapCenter, mapZoom, warmer }) {
         <HeatIndicator style={warmer ? { background: 'red' } : null}>
           Warmer
         </HeatIndicator>
+      </FlexContainer>
+      <FlexContainer>
+        <svg style={{ width: 500, height: 200 }}>
+          <g fill="#56F">
+            <polygon fillOpacity={1} points="20 80, 70 80, 70 100, 20 100" />
+            <polygon
+              fillOpacity={heatIndex > 1 ? 1 : 0.4}
+              points="80 80, 130 80, 130 100, 80 100"
+            />
+            <polygon
+              fillOpacity={heatIndex > 2 ? 1 : 0.4}
+              points="140 80, 190 80, 190 100, 140 100"
+            />
+            <polygon
+              fillOpacity={heatIndex > 3 ? 1 : 0.4}
+              points="200 80, 250 80, 250 100, 200 100"
+            />
+          </g>
+          <g fill="#F65">
+            <polygon
+              fillOpacity={heatIndex > 4 ? 1 : 0.4}
+              points="260 80, 310 80, 310 100, 260 100"
+            />
+            <polygon
+              fillOpacity={heatIndex > 5 ? 1 : 0.4}
+              points="320 80, 370 80, 370 100, 320 100"
+            />
+            <polygon
+              fillOpacity={heatIndex > 6 ? 1 : 0.4}
+              points="380 80, 430 80, 430 100, 380 100"
+            />
+          </g>
+          <polygon
+            fill="#F43"
+            fillOpacity={heatIndex > 7 ? 1 : 0.4}
+            points="440 80, 490 80, 490 100, 440 100"
+          />
+        </svg>
       </FlexContainer>
     </section>
   );

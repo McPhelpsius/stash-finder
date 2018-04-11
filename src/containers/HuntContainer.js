@@ -19,6 +19,7 @@ class HuntContainer extends Component {
         distance: 200000,
       },
       warmer: true,
+      heatIndex: 1,
       userLocation: { lat: 0, lng: 0 },
       mapZoom: 16,
     };
@@ -66,6 +67,25 @@ class HuntContainer extends Component {
 
       const newDistance = this.calculateUserDistance(lat, lng);
       const warmer = newDistance < distance;
+      let heatIndex = this.state.heatIndex;
+
+      if (distance <= 10) {
+        heatIndex = 8;
+      } else if (distance <= 50) {
+        heatIndex = 7;
+      } else if (distance <= 100) {
+        heatIndex = 6;
+      } else if (distance <= 150) {
+        heatIndex = 5;
+      } else if (distance <= 200) {
+        heatIndex = 4;
+      } else if (distance <= 300) {
+        heatIndex = 3;
+      } else if (distance <= 400) {
+        heatIndex = 2;
+      } else {
+        heatIndex = 1;
+      }
 
       this.setState({
         closestStash: {
@@ -73,6 +93,7 @@ class HuntContainer extends Component {
           distance: newDistance,
         },
         warmer,
+        heatIndex,
       });
     });
   };
@@ -105,8 +126,15 @@ class HuntContainer extends Component {
   };
 
   render() {
-    const { mapZoom, userLocation, warmer } = this.state;
-    return <Hunt mapZoom={mapZoom} mapCenter={userLocation} warmer={warmer} />;
+    const { mapZoom, userLocation, warmer, heatIndex } = this.state;
+    return (
+      <Hunt
+        mapZoom={mapZoom}
+        mapCenter={userLocation}
+        warmer={warmer}
+        heatIndex={heatIndex}
+      />
+    );
   }
 }
 
