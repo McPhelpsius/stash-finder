@@ -42,6 +42,7 @@ type Mutation {
     clue2: String
     claimed: Boolean
   ): Stash
+  claimStash(id: ID!, claimCode: String!): Stash
   login(email: String!, password: String!): AuthPayload!
   signup(name: String!, email: String!, password: String!): AuthPayload!
 }

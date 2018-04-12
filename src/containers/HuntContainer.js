@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Hunt from '../components/Hunt';
 import { withApollo } from 'react-apollo';
 import getAllStashes from '../gql/getAllStashes';
+import claimStash from '../gql/claimStash';
 
 class HuntContainer extends Component {
   constructor() {
@@ -18,10 +19,12 @@ class HuntContainer extends Component {
         clue2: '',
         distance: 200000,
       },
+      userClaimCode: '',
       warmer: true,
       heatIndex: 1,
       userLocation: { lat: 0, lng: 0 },
       mapZoom: 16,
+      error: '',
     };
   }
 
@@ -125,14 +128,44 @@ class HuntContainer extends Component {
     return Math.round(Math.sqrt(metersSquared) * 100) / 100;
   };
 
+  updateUserClaimCode = code => {
+    this.setState({ userClaimCode: code });
+  };
+
+  submitClaimCode = async () => {
+    const { closestStash, userClaimCode } = this.state;
+    this.setState({ error: '' });
+
+    try {
+      const claimResponse = await this.props.client.mutate({
+        mutation: claimStash,
+        variables: {
+          id: closestStash.id,
+          claimCode: userClaimCode,
+        },
+      });
+
+      if (claimResponse.data.claimStash.claimed === true) {
+        await this.queryAllBalls();
+        this.setClosestStash();
+      }
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: 'That claim code is wrong' });
+    }
+  };
+
   render() {
-    const { mapZoom, userLocation, warmer, heatIndex } = this.state;
+    const { mapZoom, userLocation, warmer, heatIndex, error } = this.state;
     return (
       <Hunt
         mapZoom={mapZoom}
         mapCenter={userLocation}
         warmer={warmer}
         heatIndex={heatIndex}
+        updateUserClaimCode={this.updateUserClaimCode}
+        submitClaimCode={this.submitClaimCode}
+        error={error}
       />
     );
   }

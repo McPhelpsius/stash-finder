@@ -2,6 +2,7 @@ import React from 'react';
 import MapComponent from './Map';
 import Typography from 'material-ui/Typography';
 import styled from 'react-emotion';
+import { TextField, Button } from 'material-ui';
 
 const MapSection = styled('section')`
   height: 300px;
@@ -19,7 +20,15 @@ const HeatIndicator = styled('div')`
   flex: 1 0 50%;
 `;
 
-export default function Hunt({ mapCenter, mapZoom, warmer, heatIndex }) {
+export default function Hunt({
+  mapCenter,
+  mapZoom,
+  warmer,
+  heatIndex,
+  updateUserClaimCode,
+  submitClaimCode,
+  error,
+}) {
   return (
     <section>
       <Typography variant="display3">Hunt</Typography>
@@ -71,6 +80,18 @@ export default function Hunt({ mapCenter, mapZoom, warmer, heatIndex }) {
             points="440 80, 490 80, 490 100, 440 100"
           />
         </svg>
+      </FlexContainer>
+      <Typography variant="body1" color="error">
+        {error}
+      </Typography>
+      <FlexContainer>
+        <TextField
+          label="Claim Code"
+          onChange={event => updateUserClaimCode(event.target.value)}
+        />
+        <Button variant="raised" color="primary" onClick={submitClaimCode}>
+          Claim!
+        </Button>
       </FlexContainer>
     </section>
   );
