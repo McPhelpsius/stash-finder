@@ -56,9 +56,9 @@ async function claimStash(parent, { id, claimCode }, ctx, info) {
       },
       info,
     );
+  } else {
+    return new Error('That claim code is wrong');
   }
-
-  return new Error('That claim code is wrong');
 }
 
 module.exports = {
