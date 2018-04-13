@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Hunt from '../components/Hunt';
 import { withApollo } from 'react-apollo';
-import getAllStashes from '../gql/getAllStashes';
+import getUnclaimedStashes from '../gql/getUnclaimedStashes';
 import claimStash from '../gql/claimStash';
 
 class HuntContainer extends Component {
@@ -29,20 +29,20 @@ class HuntContainer extends Component {
   }
 
   async componentDidMount() {
-    await this.queryAllBalls();
+    await this.queryUnclaimedStashes();
     await this.getLocation();
     this.trackLocation();
   }
 
-  queryAllBalls = async () => {
+  queryUnclaimedStashes = async () => {
     try {
       const allResponse = await this.props.client.query({
-        query: getAllStashes,
+        query: getUnclaimedStashes,
         fetchPolicy: 'no-cache',
       });
 
       this.setState({
-        stashes: allResponse.data.stashes,
+        stashes: allResponse.data.unclaimedStashes,
       });
     } catch (e) {
       this.setState({ error: "Couldn't query all the stashes" });
@@ -146,7 +146,19 @@ class HuntContainer extends Component {
       });
 
       if (claimResponse.data.claimStash.claimed === true) {
-        await this.queryAllBalls();
+        await this.queryUnclaimedStashes();
+        this.setState({
+          closestStash: {
+            id: '',
+            name: '',
+            lat: 0,
+            lng: 0,
+            claimCode: '',
+            clue1: '',
+            clue2: '',
+            distance: 200000,
+          },
+        });
         this.setClosestStash();
       }
     } catch (error) {
@@ -156,7 +168,15 @@ class HuntContainer extends Component {
   };
 
   render() {
-    const { mapZoom, userLocation, warmer, heatIndex, error } = this.state;
+    const {
+      mapZoom,
+      userLocation,
+      warmer,
+      heatIndex,
+      error,
+      stashes,
+      closestStash,
+    } = this.state;
     return (
       <Hunt
         mapZoom={mapZoom}
@@ -166,6 +186,8 @@ class HuntContainer extends Component {
         updateUserClaimCode={this.updateUserClaimCode}
         submitClaimCode={this.submitClaimCode}
         error={error}
+        stashes={stashes}
+        closestStash={closestStash}
       />
     );
   }

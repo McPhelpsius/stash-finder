@@ -5,6 +5,9 @@ module.exports = {
   stashes(parent, args, ctx, info) {
     return ctx.db.query.stashes(info);
   },
+  unclaimedStashes(parent, args, ctx, info) {
+    return ctx.db.query.stashes({ where: { claimed: false } }, info);
+  },
   user(parent, { id }, ctx, info) {
     return ctx.db.query.user({ where: { id: id } }, info);
   },

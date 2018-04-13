@@ -1,6 +1,7 @@
 type Query {
   users: [User]
   stashes: [Stash]
+  unclaimedStashes: [Stash]
   user(id: ID!): User
   stash(id: ID!): Stash
   me(id: ID!): User
