@@ -3,7 +3,7 @@ import Typography from 'material-ui/Typography';
 import MapComponent from './Map';
 import Card, { CardContent, CardActions } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import StashCard from './StashCard';
+import StashCard from '../containers/StashCardContainer';
 import Button from 'material-ui/Button';
 import styled from 'react-emotion';
 
@@ -38,7 +38,6 @@ const AddStashCardContent = styled(CardContent)`
 `;
 
 export default function Admin({
-  editing,
   status,
   error,
   name,
@@ -51,6 +50,7 @@ export default function Admin({
   updateValue,
   addStash,
   stashes,
+  queryAllStashes,
   mapCenter,
   mapZoom,
   recenterMap,
@@ -76,9 +76,9 @@ export default function Admin({
             return (
               <StashCard
                 key={index}
-                editing={editing}
                 stash={stash}
                 recenterMap={recenterMap}
+                queryAllStashes={queryAllStashes}
               />
             );
           })
