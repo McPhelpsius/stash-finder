@@ -279,7 +279,6 @@ class AdminContainer extends Component {
       <AdminContext.Provider
         value={{
           recenterMap: this.recenterMap,
-          queryAllStashes: this.queryAllStashes,
         }}
       >
         <AdminComponent
@@ -295,6 +294,7 @@ class AdminContainer extends Component {
           addStash={this.addStash}
           stashes={stashes || []}
           updateValue={this.updateValue}
+          queryAllStashes={queryAllStashes}
           mapCenter={mapCenter}
           mapZoom={mapZoom}
         />
