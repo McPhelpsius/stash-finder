@@ -294,7 +294,7 @@ class AdminContainer extends Component {
           addStash={this.addStash}
           stashes={stashes || []}
           updateValue={this.updateValue}
-          queryAllStashes={queryAllStashes}
+          queryAllStashes={this.queryAllStashes}
           mapCenter={mapCenter}
           mapZoom={mapZoom}
         />
