@@ -255,6 +255,10 @@ class AdminContainer extends Component {
     }
   };
 
+  updateValue = (key, value) => {
+    this.setState({ [key]: value });
+  };
+
   recenterMap = (lat, lng) => {
     this.setState({ mapCenter: { lat, lng }, mapZoom: 18 });
     window.scrollTo(0, 0);
