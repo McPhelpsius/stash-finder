@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from 'material-ui/Typography';
 import MapComponent from './Map';
+import InfoModal from './InfoModal';
 import Card, { CardContent, CardActions } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import StashCard from '../containers/StashCardContainer';
@@ -139,6 +140,12 @@ export default function Admin({
           </form>
         </AddStashCard>
       </section>
+      <InfoModal
+        info={error}
+        closeModal={() => {
+          updateValue('error', '');
+        }}
+      />
     </AdminInterFaceContainer>
   );
 }
