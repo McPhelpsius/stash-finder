@@ -19,6 +19,8 @@ class HuntContainer extends Component {
         clue2: '',
         distance: 200000,
       },
+      showClue1: false,
+      showClue2: false,
       userClaimCode: '',
       warmer: true,
       heatIndex: 1,
@@ -128,8 +130,8 @@ class HuntContainer extends Component {
     return Math.round(Math.sqrt(metersSquared) * 100) / 100;
   };
 
-  updateUserClaimCode = code => {
-    this.setState({ userClaimCode: code });
+  updateValue = (key, value) => {
+    this.setState({ [key]: value });
   };
 
   submitClaimCode = async () => {
@@ -176,6 +178,8 @@ class HuntContainer extends Component {
       error,
       stashes,
       closestStash,
+      showClue1,
+      showClue2,
     } = this.state;
     return (
       <Hunt
@@ -184,10 +188,13 @@ class HuntContainer extends Component {
         warmer={warmer}
         heatIndex={heatIndex}
         updateUserClaimCode={this.updateUserClaimCode}
+        updateValue={this.updateValue}
         submitClaimCode={this.submitClaimCode}
         error={error}
         stashes={stashes}
         closestStash={closestStash}
+        showClue1={showClue1}
+        showClue2={showClue2}
       />
     );
   }
