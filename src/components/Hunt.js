@@ -15,6 +15,13 @@ const FlexContainer = styled('div')`
   justify-content: center;
 `;
 
+const FlexColumnContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+`;
+
 const HeatIndicator = styled('div')`
   height: 40px;
   flex: 1 0 50%;
@@ -25,7 +32,11 @@ export default function Hunt({
   mapZoom,
   warmer,
   heatIndex,
+  closestStash,
+  showClue1,
+  showClue2,
   updateUserClaimCode,
+  updateValue,
   submitClaimCode,
   error,
 }) {
@@ -85,9 +96,21 @@ export default function Hunt({
         {error}
       </Typography>
       <FlexContainer>
+        <Button onClick={() => updateValue('showClue1', true)}>Clue 1</Button>
+        {showClue1 ? (
+          <Typography variant="body2">{closestStash.clue1}</Typography>
+        ) : null}
+      </FlexContainer>
+      <FlexContainer>
+        <Button onClick={() => updateValue('showClue2', true)}>Clue 2</Button>
+        {showClue2 ? (
+          <Typography variant="body2">{closestStash.clue2}</Typography>
+        ) : null}
+      </FlexContainer>
+      <FlexContainer>
         <TextField
           label="Claim Code"
-          onChange={event => updateUserClaimCode(event.target.value)}
+          onChange={event => updateValue('userClaimCode', event.target.value)}
         />
         <Button variant="raised" color="primary" onClick={submitClaimCode}>
           Claim!
