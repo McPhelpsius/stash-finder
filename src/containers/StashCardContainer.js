@@ -81,7 +81,6 @@ class StashCardContainer extends Component {
         toggleEditing={this.toggleEditing}
         updateValue={this.updateValue}
         updateStash={this.updateStash}
-        recenterMap={this.props.recenterMap}
       />
     );
   }

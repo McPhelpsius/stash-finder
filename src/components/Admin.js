@@ -53,7 +53,6 @@ export default function Admin({
   queryAllStashes,
   mapCenter,
   mapZoom,
-  recenterMap,
 }) {
   return (
     <AdminInterFaceContainer>
@@ -77,7 +76,6 @@ export default function Admin({
               <StashCard
                 key={index}
                 stash={stash}
-                recenterMap={recenterMap}
                 queryAllStashes={queryAllStashes}
               />
             );
