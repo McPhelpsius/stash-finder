@@ -15,13 +15,6 @@ const FlexContainer = styled('div')`
   justify-content: center;
 `;
 
-const FlexColumnContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-`;
-
 const HeatIndicator = styled('div')`
   height: 40px;
   flex: 1 0 50%;

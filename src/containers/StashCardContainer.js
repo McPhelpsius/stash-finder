@@ -13,13 +13,10 @@ class StashCardContainer extends Component {
   }
 
   updateValue = (key, value) => {
-    // TODO: Create editing state
     this.setState({ [key]: value });
-    console.log(this.state[key]);
   };
 
   updateStash = async () => {
-    console.log(this.state);
     const { id, name, lat, lng, claimCode, clue1, clue2, claimed } = this.state;
     try {
       const lati = parseFloat(lat, 10);
