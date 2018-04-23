@@ -28,7 +28,6 @@ export default function Hunt({
   closestStash,
   showClue1,
   showClue2,
-  updateUserClaimCode,
   updateValue,
   submitClaimCode,
   error,
@@ -37,7 +36,12 @@ export default function Hunt({
     <section>
       <Typography variant="display3">Hunt</Typography>
       <MapSection>
-        <MapComponent mapCenter={mapCenter} mapZoom={mapZoom} />
+        <MapComponent
+          mapCenter={mapCenter}
+          mapZoom={mapZoom}
+          points={[mapCenter]}
+          pointIcon="./images/bluepin.png"
+        />
       </MapSection>
       <FlexContainer>
         <HeatIndicator style={warmer ? null : { background: 'blue' }}>

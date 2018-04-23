@@ -14,7 +14,7 @@ const BannerMap = styled(Map)`
   max-height: 300px;
 `;
 
-function MapComponent({ google, points, mapCenter, mapZoom }) {
+function MapComponent({ google, points, mapCenter, mapZoom, pointIcon }) {
   return (
     <MapRestrictor>
       <BannerMap
@@ -31,6 +31,7 @@ function MapComponent({ google, points, mapCenter, mapZoom }) {
                   title={point.name}
                   name={point.name}
                   position={{ lat: point.lat, lng: point.lng }}
+                  icon={pointIcon}
                 />
               );
             })

@@ -176,7 +176,6 @@ class HuntContainer extends Component {
       warmer,
       heatIndex,
       error,
-      stashes,
       closestStash,
       showClue1,
       showClue2,
@@ -187,11 +186,9 @@ class HuntContainer extends Component {
         mapCenter={userLocation}
         warmer={warmer}
         heatIndex={heatIndex}
-        updateUserClaimCode={this.updateUserClaimCode}
         updateValue={this.updateValue}
         submitClaimCode={this.submitClaimCode}
         error={error}
-        stashes={stashes}
         closestStash={closestStash}
         showClue1={showClue1}
         showClue2={showClue2}
