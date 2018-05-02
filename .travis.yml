@@ -3,7 +3,7 @@ node_js:
   - "node"
 os: osx
 before_install:
-  - sudo apt-get install -y -qq yarn=0.18.2
+  - npm install yarn@0.18.2
 script:
   - yarn test
 cache:
