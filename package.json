@@ -45,7 +45,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "predeploy": "prisma deploy",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
