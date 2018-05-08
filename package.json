@@ -1,6 +1,7 @@
 {
   "name": "react-fullstack-basic",
   "version": "1.0.0",
+  "homepage": "http://mcphelpsius.github.io/stash-finder",
   "devDependencies": {
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-env": "^1.6.1",
@@ -25,6 +26,7 @@
     "emotion": "^9.1.0",
     "eslint": "latest",
     "flow": "^0.2.3",
+    "gh-pages": "^1.1.0",
     "google-maps-react": "^1.1.6",
     "graphql": "^0.13.2",
     "graphql-tag": "2.8.0",
@@ -43,6 +45,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "prisma deploy",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "resolutions": {
