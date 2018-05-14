@@ -29,7 +29,7 @@ ReactDOM.render(
           <nav className="pa3 pa4-ns">
             <Link
               className="link dim black b f6 f5-ns dib mr3"
-              to="/admin"
+              to="./Admin"
               title="Admin"
             >
               Admin
@@ -38,7 +38,7 @@ ReactDOM.render(
               className="link dim f6 f5-ns dib mr3 black"
               activeClassName="gray"
               exact
-              to="/Hunt"
+              to="./Hunt"
               title="Live Hunt"
             >
               Hunt
@@ -47,7 +47,7 @@ ReactDOM.render(
               className="link dim f6 f5-ns dib mr3 black"
               activeClassName="gray"
               exact
-              to="/logout"
+              to="./Logout"
               title="Logout"
             >
               Logout
